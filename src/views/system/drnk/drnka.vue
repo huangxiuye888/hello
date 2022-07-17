@@ -1,25 +1,71 @@
 <template>
   <div class="home">
-    我是drnka
-    <div @click="handlerMessage">我是父亲，对儿子说:{{ sthGiveChild }}</div>
-    <Child v-model="sthGiveChild"></Child>
+    <Table :data="tableData" :cloumns="cloumns">
+      <template v-slot:address="{ row, column, $index }">
+        <div>{{ row.address }}11</div>
+      </template>
+      <template v-slot:options>
+        <div>查看</div>
+      </template>
+    </Table>
   </div>
 </template>
 
 <script>
-import Child from "./components/child.vue";
+import Table from "@/components/elTable.vue";
 export default {
   name: "Drnka",
-  components: { Child },
+  components: { Table },
   data() {
     return {
-      sthGiveChild: "给你100块",
+      tableData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1517 弄",
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1519 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+      ],
+      cloumns: [
+        {
+          prop: "date",
+          label: "日期",
+          width: "180",
+        },
+        {
+          prop: "name",
+          label: "名字",
+          width: "280",
+        },
+        {
+          prop: "address",
+          label: "地址",
+          width: "280",
+          needSlot: true,
+        },
+        {
+          prop: "options",
+          label: "操作",
+          width: "100",
+          needSlot: true,
+        },
+      ],
     };
   },
-  methods: {
-    handlerMessage(){
-      this.$notice({title:'哈哈',message:'我也不知道对不对',duration:2000})
-    }
-  },
+  methods: {},
 };
 </script>
